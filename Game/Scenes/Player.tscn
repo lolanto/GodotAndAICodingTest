@@ -1,0 +1,113 @@
+[gd_scene load_steps=17 format=3 uid="uid://player_entity"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_player"]
+[ext_resource type="Script" path="res://Scripts/Components/MovementComponent.gd" id="2_movement"]
+[ext_resource type="Script" path="res://Scripts/Components/GravityReceiverComponent.gd" id="3_gravrecv"]
+[ext_resource type="Script" path="res://Scripts/Components/PlayerInputComponent.gd" id="4_input"]
+[ext_resource type="Script" path="res://Scripts/Components/GravitySkillComponent.gd" id="5_gravskill"]
+[ext_resource type="Script" path="res://Scripts/Components/TimeSkillComponent.gd" id="6_timeskill"]
+[ext_resource type="Script" path="res://Scripts/Components/HealthComponent.gd" id="7_health"]
+[ext_resource type="Script" path="res://Scripts/Components/LGFNode.gd" id="8_lgf"]
+
+[sub_resource type="RectangleShape2D" id="player_shape"]
+size = Vector2(24, 56)
+
+[sub_resource type="CircleShape2D" id="lgf_shape_0"]
+radius = 80.0
+[sub_resource type="CircleShape2D" id="lgf_shape_1"]
+radius = 80.0
+[sub_resource type="CircleShape2D" id="lgf_shape_2"]
+radius = 80.0
+[sub_resource type="CircleShape2D" id="lgf_shape_3"]
+radius = 80.0
+[sub_resource type="CircleShape2D" id="lgf_shape_4"]
+radius = 80.0
+[sub_resource type="CircleShape2D" id="lgf_shape_5"]
+radius = 80.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("player_shape")
+
+[node name="Visual" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-12, -28, 12, -28, 12, 28, -12, 28)
+color = Color(0.2, 0.65, 1.0, 1)
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("2_movement")
+rewind_id = "player/movement"
+
+[node name="GravityReceiverComponent" type="Node" parent="."]
+script = ExtResource("3_gravrecv")
+rewind_id = "player/gravity-receiver"
+
+[node name="PlayerInputComponent" type="Node" parent="."]
+script = ExtResource("4_input")
+
+[node name="GravitySkillComponent" type="Node" parent="."]
+script = ExtResource("5_gravskill")
+rewind_id = "player/gravity-skill"
+
+[node name="LGFNode_Slot0" type="Area2D" parent="GravitySkillComponent"]
+script = ExtResource("8_lgf")
+rewind_id = "player/lgf-slot-0"
+source = "player_skill"
+unlocked = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GravitySkillComponent/LGFNode_Slot0"]
+shape = SubResource("lgf_shape_0")
+
+[node name="LGFNode_Slot1" type="Area2D" parent="GravitySkillComponent"]
+script = ExtResource("8_lgf")
+rewind_id = "player/lgf-slot-1"
+source = "player_skill"
+unlocked = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GravitySkillComponent/LGFNode_Slot1"]
+shape = SubResource("lgf_shape_1")
+
+[node name="LGFNode_Slot2" type="Area2D" parent="GravitySkillComponent"]
+script = ExtResource("8_lgf")
+rewind_id = "player/lgf-slot-2"
+source = "player_skill"
+unlocked = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GravitySkillComponent/LGFNode_Slot2"]
+shape = SubResource("lgf_shape_2")
+
+[node name="LGFNode_Slot3" type="Area2D" parent="GravitySkillComponent"]
+script = ExtResource("8_lgf")
+rewind_id = "player/lgf-slot-3"
+source = "player_skill"
+unlocked = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GravitySkillComponent/LGFNode_Slot3"]
+shape = SubResource("lgf_shape_3")
+
+[node name="LGFNode_Slot4" type="Area2D" parent="GravitySkillComponent"]
+script = ExtResource("8_lgf")
+rewind_id = "player/lgf-slot-4"
+source = "player_skill"
+unlocked = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GravitySkillComponent/LGFNode_Slot4"]
+shape = SubResource("lgf_shape_4")
+
+[node name="LGFNode_Slot5" type="Area2D" parent="GravitySkillComponent"]
+script = ExtResource("8_lgf")
+rewind_id = "player/lgf-slot-5"
+source = "player_skill"
+unlocked = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GravitySkillComponent/LGFNode_Slot5"]
+shape = SubResource("lgf_shape_5")
+
+[node name="TimeSkillComponent" type="Node" parent="."]
+script = ExtResource("6_timeskill")
+rewind_id = "player/time-skill"
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("7_health")
+rewind_id = "player/health"

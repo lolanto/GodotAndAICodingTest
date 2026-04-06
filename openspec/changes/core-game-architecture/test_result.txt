@@ -1,0 +1,109 @@
+
+
+res://Tests/Acceptance/test_at01_startup.gd
+* test_at01_autoload_initial_values
+* test_at01_manual_hud_visual_check
+    [Pending]:  【手动】运行 ./run.sh → 加载 SkillTestLab.tscn → 等待 3s
+    确认：
+      · Godot 输出窗口无 ERROR / SCRIPT ERROR
+      · HUD 左上角显示 GE=100，CE=100
+      · HUD 显示时间倍率 ×1.0，重力方向 ↓，强度 1.0
+1/2 passed.
+
+
+res://Tests/Acceptance/test_at02_gravity.gd
+* test_at02a_four_direction_gravity_visual
+    [Pending]:  【手动 ★】在 SkillTestLab 中依次按 S/W/A/D 切换重力方向
+    确认：
+      · 每次切换后玩家向对应方向加速下落
+      · 玩家被对应边界正确阻挡，无穿模
+      · GE 每次方向切换减少 15，HUD 数值同步更新
+* test_at02b_ge_consumed_and_cooldown_prevents_rapid_switch
+* test_at02c_lgf_changes_local_gravity_to_up
+2/3 passed.
+
+
+res://Tests/Acceptance/test_at03_time.gd
+* test_at03a_slow_motion_ce_drain_rate
+* test_at03b_time_rush_ce_drain_rate
+* test_at03c_rewind_blue_filter_visual
+    [Pending]:  【手动 ★】在 SkillTestLab 中按住 R 键触发时间回溯
+    确认：
+      · 画面出现蓝色滤镜覆盖层
+      · 玩家和木箱的运动轨迹反向播放
+      · HUD 显示「REWINDING」回溯状态标识
+      · 松开 R 键后蓝色滤镜消失，时间恢复正常
+* test_at03d_rewind_restores_crate_position
+* test_at03e_ce_exhaustion_cancels_all_time_effects
+4/5 passed.
+
+
+res://Tests/Acceptance/test_at04_synergy.gd
+* test_at04a_zero_g_ce_triple_bonus_over_2_seconds
+* test_at04b_gravity_time_dilation_visual
+    [Pending]:  【手动 ★】在 SkillTestLab 中通过调试命令设置 GravityManager.set_magnitude(3.0)
+    确认：
+      · 玩家下落速度明显变慢（引力膨胀效果）
+      · HUD time_scale 显示值 < 1.0
+      · 理论值：magnitude=3 → time_scale = 1/√3 ≈ 0.577（GDD §6.3）
+      · 记录实际 HUD 数值并与理论值比对（允许 ±0.05 误差）
+1/2 passed.
+
+
+res://Tests/Acceptance/test_at05_rewind_free_zone.gd
+* test_at05_enter_and_exit_rewind_free_zone_full_flow
+1/1 passed.
+
+
+
+
+==============================================
+= Run Summary
+==============================================
+
+res://Tests/Acceptance/test_at01_startup.gd
+- test_at01_manual_hud_visual_check
+    [Pending]:  【手动】运行 ./run.sh → 加载 SkillTestLab.tscn → 等待 3s
+    确认：
+      · Godot 输出窗口无 ERROR / SCRIPT ERROR
+      · HUD 左上角显示 GE=100，CE=100
+      · HUD 显示时间倍率 ×1.0，重力方向 ↓，强度 1.0
+
+res://Tests/Acceptance/test_at02_gravity.gd
+- test_at02a_four_direction_gravity_visual
+    [Pending]:  【手动 ★】在 SkillTestLab 中依次按 S/W/A/D 切换重力方向
+    确认：
+      · 每次切换后玩家向对应方向加速下落
+      · 玩家被对应边界正确阻挡，无穿模
+      · GE 每次方向切换减少 15，HUD 数值同步更新
+
+res://Tests/Acceptance/test_at03_time.gd
+- test_at03c_rewind_blue_filter_visual
+    [Pending]:  【手动 ★】在 SkillTestLab 中按住 R 键触发时间回溯
+    确认：
+      · 画面出现蓝色滤镜覆盖层
+      · 玩家和木箱的运动轨迹反向播放
+      · HUD 显示「REWINDING」回溯状态标识
+      · 松开 R 键后蓝色滤镜消失，时间恢复正常
+
+res://Tests/Acceptance/test_at04_synergy.gd
+- test_at04b_gravity_time_dilation_visual
+    [Pending]:  【手动 ★】在 SkillTestLab 中通过调试命令设置 GravityManager.set_magnitude(3.0)
+    确认：
+      · 玩家下落速度明显变慢（引力膨胀效果）
+      · HUD time_scale 显示值 < 1.0
+      · 理论值：magnitude=3 → time_scale = 1/√3 ≈ 0.577（GDD §6.3）
+      · 记录实际 HUD 数值并与理论值比对（允许 ±0.05 误差）
+
+Totals
+------
+Scripts               5
+Tests                13
+Passing Tests         9
+Risky/Pending         4
+Asserts              33
+Time              0.294s
+
+
+---- 4 pending/risky tests. ----
+

@@ -1,0 +1,153 @@
+[gd_scene load_steps=11 format=3 uid="uid://skill_test_lab"]
+
+[ext_resource type="PackedScene" path="res://Scenes/Player.tscn" id="1_player"]
+[ext_resource type="Script" path="res://Scripts/SkillTestLabHUD.gd" id="2_hud"]
+[ext_resource type="Script" path="res://Scripts/Crate.gd" id="3_crate"]
+
+[sub_resource type="RectangleShape2D" id="wall_bottom_shape"]
+size = Vector2(1280, 32)
+
+[sub_resource type="RectangleShape2D" id="wall_top_shape"]
+size = Vector2(1280, 32)
+
+[sub_resource type="RectangleShape2D" id="side_wall_shape"]
+size = Vector2(32, 720)
+
+[sub_resource type="RectangleShape2D" id="platform_shape"]
+size = Vector2(200, 20)
+
+[sub_resource type="RectangleShape2D" id="crate_shape"]
+size = Vector2(48, 48)
+
+[node name="SkillTestLab" type="Node2D"]
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="BGRect" type="ColorRect" parent="Background"]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.08, 0.08, 0.12, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(640, 360)
+
+[node name="WallBottom" type="StaticBody2D" parent="."]
+position = Vector2(640, 736)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallBottom"]
+shape = SubResource("wall_bottom_shape")
+
+[node name="Visual" type="Polygon2D" parent="WallBottom"]
+polygon = PackedVector2Array(-640, -16, 640, -16, 640, 16, -640, 16)
+color = Color(0.35, 0.35, 0.42, 1)
+
+[node name="WallTop" type="StaticBody2D" parent="."]
+position = Vector2(640, -16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallTop"]
+shape = SubResource("wall_top_shape")
+
+[node name="Visual" type="Polygon2D" parent="WallTop"]
+polygon = PackedVector2Array(-640, -16, 640, -16, 640, 16, -640, 16)
+color = Color(0.35, 0.35, 0.42, 1)
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+position = Vector2(-16, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+shape = SubResource("side_wall_shape")
+
+[node name="Visual" type="Polygon2D" parent="WallLeft"]
+polygon = PackedVector2Array(-16, -360, 16, -360, 16, 360, -16, 360)
+color = Color(0.35, 0.35, 0.42, 1)
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+position = Vector2(1296, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+shape = SubResource("side_wall_shape")
+
+[node name="Visual" type="Polygon2D" parent="WallRight"]
+polygon = PackedVector2Array(-16, -360, 16, -360, 16, 360, -16, 360)
+color = Color(0.35, 0.35, 0.42, 1)
+
+[node name="PlatformA" type="StaticBody2D" parent="."]
+position = Vector2(300, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformA"]
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="Polygon2D" parent="PlatformA"]
+polygon = PackedVector2Array(-100, -10, 100, -10, 100, 10, -100, 10)
+color = Color(0.55, 0.55, 0.65, 1)
+
+[node name="PlatformB" type="StaticBody2D" parent="."]
+position = Vector2(640, 400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformB"]
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="Polygon2D" parent="PlatformB"]
+polygon = PackedVector2Array(-100, -10, 100, -10, 100, 10, -100, 10)
+color = Color(0.55, 0.55, 0.65, 1)
+
+[node name="PlatformC" type="StaticBody2D" parent="."]
+position = Vector2(980, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformC"]
+shape = SubResource("platform_shape")
+
+[node name="Visual" type="Polygon2D" parent="PlatformC"]
+polygon = PackedVector2Array(-100, -10, 100, -10, 100, 10, -100, 10)
+color = Color(0.55, 0.55, 0.65, 1)
+
+[node name="Crate" type="RigidBody2D" parent="."]
+position = Vector2(500, 300)
+script = ExtResource("3_crate")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Crate"]
+shape = SubResource("crate_shape")
+
+[node name="Visual" type="Polygon2D" parent="Crate"]
+polygon = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+color = Color(0.6, 0.4, 0.2, 1)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("2_hud")
+
+[node name="HUDContainer" type="HBoxContainer" parent="HUD"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 600.0
+offset_bottom = 40.0
+
+[node name="GEBar" type="ProgressBar" parent="HUD/HUDContainer"]
+custom_minimum_size = Vector2(100, 20)
+max_value = 100.0
+value = 100.0
+
+[node name="CEBar" type="ProgressBar" parent="HUD/HUDContainer"]
+custom_minimum_size = Vector2(100, 20)
+max_value = 100.0
+value = 100.0
+
+[node name="TimeScaleLabel" type="Label" parent="HUD/HUDContainer"]
+text = "×1.0"
+
+[node name="GravityLabel" type="Label" parent="HUD/HUDContainer"]
+text = "↓ ×1.0"
+
+[node name="RewindOverlay" type="ColorRect" parent="HUD"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.3, 0.5, 1.0, 0.25)
+mouse_filter = 2
+
+[node name="DebugPanel" type="Label" parent="HUD"]
+offset_left = 10.0
+offset_top = 50.0
+offset_right = 400.0
+offset_bottom = 250.0
+text = "Debug Panel"
